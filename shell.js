@@ -1502,6 +1502,8 @@ function wrap(cmd, fn, options) {
 // (Using readFileSync() + writeFileSync() could easily cause a memory overflow
 //  with large files)
 function copyFileSync(srcFile, destFile) {
+
+  //console.log("copying", srcFile, "to", destFile);
   if (!fs.existsSync(srcFile))
     error('copyFileSync: no such file or directory: ' + srcFile);
 
@@ -1532,6 +1534,7 @@ function copyFileSync(srcFile, destFile) {
 
   fs.closeSync(fdr);
   fs.closeSync(fdw);
+  //console.log("done copying", srcFile, "to", destFile);
 }
 
 // Recursively copies 'sourceDir' into 'destDir'
@@ -1734,11 +1737,33 @@ function execAsync(cmd, opts, callback) {
   return c;
 }
 
+
+var execSyncFfi = require('execSync');
+
+function execSync(cmd, opts) {
+  var options = extend({
+    silent: config.silent
+  }, opts);
+
+
+  var res = execSyncFfi.exec(cmd);
+
+  if (!options.silent)
+    process.stdout.write(res.stdout);
+
+  return { 
+    code: res.code, 
+    output: res.stdout 
+  };
+
+}
+
 // Hack to run child_process.exec() synchronously (sync avoids callback hell)
 // Uses a custom wait loop that checks for a flag file, created when the child process is done.
 // (Can't do a wait loop that checks for internal Node variables/messages as
 // Node is single-threaded; callbacks and other internal state changes are done in the
 // event loop).
+/*
 function execSync(cmd, opts) {
   var stdoutFile = path.resolve(tempDir()+'/'+randomFileName()),
       codeFile = path.resolve(tempDir()+'/'+randomFileName()),
@@ -1817,6 +1842,9 @@ function execSync(cmd, opts) {
   };
   return obj;
 } // execSync()
+*/
+
+
 
 // Expands wildcards with matching file names. For a given array of file names 'list', returns
 // another array containing all file names as per ls(list[i]).

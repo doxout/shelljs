@@ -23,7 +23,9 @@
   "bin": {
     "shjs": "./bin/shjs"
   },
-  "dependencies": {},
+  "dependencies": {
+    "execSync": "0.0.4"
+  },
   "devDependencies": {
     "jshint": "~1.1.0"
   },
