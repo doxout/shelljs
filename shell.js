@@ -1738,7 +1738,7 @@ function execAsync(cmd, opts, callback) {
 }
 
 
-var execSyncFfi = require('execSync');
+var execSyncFfi = require('execsync-ng');
 
 function execSync(cmd, opts) {
   var options = extend({

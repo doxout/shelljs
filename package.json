@@ -1,8 +1,8 @@
 {
-  "name": "shelljs",
+  "name": "shelljs-ffi",
   "version": "0.1.3",
-  "author": "Artur Adib <aadib@mozilla.com>",
-  "description": "Portable Unix shell commands for Node.js",
+  "author": "Gorgi Kosev <gorgi.kosev@gmail.com>",
+  "description": "A close fork of shelljs that replaces the unreliable hacky execSync with another, based on node-ffi.",
   "keywords": [
     "unix",
     "shell",
@@ -13,9 +13,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/arturadib/shelljs.git"
+    "url": "git://github.com/doxout/shelljs.git"
   },
-  "homepage": "http://github.com/arturadib/shelljs",
+  "homepage": "http://github.com/doxout/shelljs",
   "main": "./shell.js",
   "scripts": {
     "test": "node scripts/run-tests"
@@ -24,7 +24,7 @@
     "shjs": "./bin/shjs"
   },
   "dependencies": {
-    "execSync": "0.0.4"
+    "execsync-ng": "0.0.5"
   },
   "devDependencies": {
     "jshint": "~1.1.0"
