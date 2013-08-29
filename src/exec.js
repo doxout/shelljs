@@ -5,12 +5,33 @@ var path = require('path');
 var fs = require('fs');
 var child = require('child_process');
 
+var execSyncNG;
+
+// Try to load execsync-ng based on node-ffi, unless
+// execsync-ng failed to install or node-ffi is
+// unable to load the msvcrt library (on windows),
+try {
+  execSyncNG = require('execsync-ng');
+} catch (e) {
+  execSyncNG = null;
+}
+
+function execSyncFfi(cmd, opts) {
+  var res = execSyncNG.exec(cmd, opts);
+  return { 
+    code: res.code, 
+    output: res.stdout 
+  };
+
+}
+
+
 // Hack to run child_process.exec() synchronously (sync avoids callback hell)
 // Uses a custom wait loop that checks for a flag file, created when the child process is done.
 // (Can't do a wait loop that checks for internal Node variables/messages as
 // Node is single-threaded; callbacks and other internal state changes are done in the
 // event loop).
-function execSync(cmd, opts) {
+function execSyncHack(cmd, opts) {
   var tempDir = _tempDir();
   var stdoutFile = path.resolve(tempDir+'/'+common.randomFileName()),
       codeFile = path.resolve(tempDir+'/'+common.randomFileName()),
@@ -89,6 +110,23 @@ function execSync(cmd, opts) {
   };
   return obj;
 } // execSync()
+
+
+
+function execSync(cmd, opts) {
+  var options = common.extend({
+    silent: common.config.silent,
+    _native: true
+  }, opts);
+
+  // Use the ffi execsync module if available
+  if (execSyncNG && options._native)
+    return execSyncFfi(cmd, options);
+  // Otherwise fallback to the hack.
+  else
+    return execSyncHack(cmd, options);
+}
+
 
 // Wrapper around exec() to enable echoing output to console in real time
 function execAsync(cmd, opts, callback) {

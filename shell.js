@@ -8,7 +8,6 @@
 
 var common = require('./src/common');
 
-
 //@
 //@ All commands run synchronously, unless otherwise stated.
 //@
@@ -151,3 +150,4 @@ exports.config = common.config;
 //@ ```
 //@
 //@ If `true` the script will die on errors. Default is `false`.
+
