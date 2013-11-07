@@ -1,8 +1,8 @@
 {
   "name": "shelljs-ffi",
-  "version": "0.2.0",
+  "version": "0.2.6",
   "author": "Gorgi Kosev <gorgi.kosev@gmail.com>",
-  "description": "A close fork of shelljs that replaces the unreliable hacky execSync with another, based on node-ffi.",
+  "description": "A close fork of shelljs that replaces the unreliable hacky execSync with another based on node-ffi.",
   "keywords": [
     "unix",
     "shell",
@@ -25,7 +25,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "jshint": "~1.1.0"
+    "jshint": "~2.1.11"
   },
   "optionalDependencies": {
     "execsync-ng": "0.0.6"

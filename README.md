@@ -439,6 +439,23 @@ Display the list of currently remembered directories. Returns an array of paths 
 See also: pushd, popd
 
 
+### ln(options, source, dest)
+### ln(source, dest)
+Available options:
+
++ `s`: symlink
++ `f`: force
+
+Examples:
+
+```javascript
+ln('file', 'newlink');
+ln('-sf', 'file', 'existing');
+```
+
+Links source to dest. Use -f to force the link, should dest already exist.
+
+
 ### exit(code)
 Exits the current process with the given exit code.
 
@@ -508,6 +525,13 @@ Notable exceptions:
 
 
 ### tempdir()
+
+Examples:
+
+```javascript
+var tmp = tempdir(); // "/tmp" for most *nix platforms
+```
+
 Searches and returns string containing a writeable, platform-dependent temporary directory.
 Follows Python's [tempfile algorithm](http://docs.python.org/library/tempfile.html#tempfile.tempdir).
 
