@@ -18,6 +18,12 @@ try {
 
 function execSyncFfi(cmd, opts) {
   var res = execSyncNG.exec(cmd, opts);
+  var code = res.code;
+  // some shell return codes are defined as errors, per http://tldp.org/LDP/abs/html/exitcodes.html
+  if (code === 1 || code === 2 || code >= 126)  {
+      common.error('', true); // unix/shell doesn't really give an error message after non-zero exit codes
+  }
+ 
   return { 
     code: res.code, 
     output: res.stdout 

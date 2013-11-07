@@ -26,7 +26,7 @@ process.exit = function (_exitcode) {
 
 shell.config.fatal = true;
 
-var result = shell.exec('asdfasdf'); // could not find command
+shell.exec('asdfasdf'); // could not find command
 assert.equal(exitcode, 1);
 
 shell.config.fatal = old_fatal;
